@@ -6,7 +6,7 @@ import wandb
 from models import Actor, Critic
 
 
-test_name = "all_0.1_entropy"
+test_name = "test1"
 episodes = 1000
 gamma = 0.99
 actor_learning_rate = 0.0005
@@ -38,7 +38,7 @@ for episode in range(episodes):
         new_obs_tensor = torch.tensor(new_obs).to("cuda")
         V = critic(obs_tensor)
         next_V = critic(new_obs_tensor)
-        Q = torch.tensor(reward / 100, dtype=torch.float32).to("cuda")
+        Q = torch.tensor(reward, dtype=torch.float32).to("cuda")
         if not terminated:
             Q += gamma * next_V.detach()
         A = Q - V.detach()
@@ -46,14 +46,14 @@ for episode in range(episodes):
         value_loss = torch.nn.functional.mse_loss(V, Q)
         critic_optimizer.zero_grad()
         value_loss.backward()
-        torch.nn.utils.clip_grad_norm_(critic.parameters(), 1)
+        # torch.nn.utils.clip_grad_norm_(critic.parameters(), 1)
         critic_optimizer.step()
 
-        entropy = dist.entropy().mean()
-        actor_loss = - A * dist.log_prob(action) - 0.1 * entropy
+        # entropy = dist.entropy().mean()
+        actor_loss = - A * dist.log_prob(action)
         actor_optimizer.zero_grad()
         actor_loss.backward()
-        torch.nn.utils.clip_grad_norm_(actor.parameters(), 1)
+        # torch.nn.utils.clip_grad_norm_(actor.parameters(), 1)
         actor_optimizer.step()
 
         obs = new_obs

@@ -6,12 +6,12 @@ import wandb
 from models import Actor, Critic
 
 
-test_name = "test10"
+test_name = "test15"
 episodes = 1000
 gamma = 0.99
 actor_learning_rate = 0.0005
 critic_learning_rate = 0.001
-n_steps = 10
+n_steps = 1
 
 env = gym.make("LunarLander-v3")
 
@@ -26,17 +26,19 @@ critic_optimizer = torch.optim.Adam(critic.parameters(), lr=critic_learning_rate
 wandb.init(project="LunarLander-v3", name=test_name)
 
 
-def bp(V, target, log_prob, ):
+def bp(V, target, log_prob, batch_size):
     value_loss = torch.nn.functional.mse_loss(V, target.detach())
-    value_loss.backward()
+    (value_loss / batch_size).backward()
 
     actor_loss = - (target - V).detach() * log_prob
-    actor_loss.backward()
+    (actor_loss / batch_size).backward()
 
 
 def step():
+    torch.nn.utils.clip_grad_norm_(critic.parameters(), 1.0)
     critic_optimizer.step()
     critic_optimizer.zero_grad()
+    torch.nn.utils.clip_grad_norm_(actor.parameters(), 1.0)
     actor_optimizer.step()
     actor_optimizer.zero_grad()
 
@@ -58,21 +60,23 @@ for episode in range(episodes):
         total_reward += reward
 
         observations.insert(0, obs)
-        rewards.insert(0, reward)
+        rewards.insert(0, reward / 100)
         log_probs.insert(0, dist.log_prob(action))
 
         if terminated:
+            batch_size = len(rewards)
             sum_reward = 0
             for reward, obs, log_prob in zip(rewards, observations[1:], log_probs):
                 sum_reward *= gamma
                 sum_reward += reward
                 sum_reward_tensor = torch.tensor(sum_reward, dtype=torch.float32).to("cuda")
                 V = critic(torch.tensor(obs).to("cuda"))
-                bp(V, sum_reward_tensor, log_prob)
+                bp(V, sum_reward_tensor, log_prob, batch_size)
             step()
             break
         else:
             if truncated or steps % n_steps == 0:
+                batch_size = len(rewards)
                 V_last = critic(torch.tensor(observations[0]).to("cuda"))
                 sum_reward = 0
                 for reward, obs, log_prob in zip(rewards, observations[1:], log_probs):
@@ -81,7 +85,7 @@ for episode in range(episodes):
                     V_last *= gamma
                     sum_reward_tensor = torch.tensor(sum_reward, dtype=torch.float32).to("cuda")
                     V = critic(torch.tensor(obs).to("cuda"))
-                    bp(V, sum_reward_tensor + V_last, log_prob)
+                    bp(V, sum_reward_tensor + V_last, log_prob, batch_size)
                 step()
                 if truncated:
                     break
