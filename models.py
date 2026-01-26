@@ -28,4 +28,4 @@ class Critic(nn.Module):
         )
 
     def forward(self, x):
-        return self.network(x).squeeze()
+        return self.network(x).squeeze(-1)
