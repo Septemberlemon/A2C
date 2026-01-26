@@ -6,7 +6,7 @@ from models import Actor  # 确保 model.py 在同一目录下
 
 
 # 配置
-model_path = "checkpoints/test15_actor.pth"  # 你训练保存的路径
+model_path = "checkpoints/test16_actor.pth"  # 你训练保存的路径
 video_folder = "videos"  # 视频保存目录
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
