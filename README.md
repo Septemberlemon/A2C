@@ -412,14 +412,15 @@ $$
 
 $$
 \begin{aligned}
-\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)&=\sum_{\tau'}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
-&=\sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
-&=\sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\left[\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k) + \sum_{k=t+n}^{T-1} \gamma^{k-t} r(k)\right]\\
-&=\sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k) + \sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t+n}^{T-1} \gamma^{k-t} r(k)\\
-&=\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n) + \sum_{\tau'_n}P(\tau'_n|h_t,a_t)\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t+n}^{T-1} \gamma^{k-t} r(k)\\
-&=\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\underbrace{\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)}_{A} + \sum_{\tau'_n}P(\tau'_n|h_t,a_t)\gamma^n\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n)\underbrace{\sum_{k=t+n}^{T-1} \gamma^{k-t-n} r(k)}_{B}\\
-&=\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k) + \sum_{\tau'_n}P(\tau'_n|h_t,a_t)\gamma^n V(s_{t+n})\\
-&=\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
+&\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{\tau'}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\left[\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k) + \sum_{k=t+n}^{T-1} \gamma^{k-t} r(k)\right]\\
+=&\sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k) + \sum_{\tau'_n}\sum_{\tau''}P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t+n}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n) + \sum_{\tau'_n}P(\tau'_n|h_t,a_t)\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n)\sum_{k=t+n}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\underbrace{\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)}_{A} + \sum_{\tau'_n}P(\tau'_n|h_t,a_t)\gamma^n\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n)\underbrace{\sum_{k=t+n}^{T-1} \gamma^{k-t-n} r(k)}_{B}\\
+=&\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\sum_{k=t}^{t+n-1} \gamma^{k-t} r(k) + \sum_{\tau'_n}P(\tau'_n|h_t,a_t)\gamma^n V(s_{t+n})\\
+=&\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
 \end{aligned}
 $$
 
@@ -429,11 +430,12 @@ $$
 
 $$
 \begin{aligned}
-\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
-&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
-&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n)\\
-&=\sum_{h_t}\sum_{a_t}\sum_{\tau'_n}\sum_{\tau''}P(h_t)\pi(a_t|s_t)P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
-&=\sum_{\tau:T(\tau) > t} P(\tau|\theta) \gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
+&\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'_n}P(\tau'_n|h_t,a_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\sum_{\tau''}P(\tau''|h_t,a_t,\tau'_n)\\
+=&\sum_{h_t}\sum_{a_t}\sum_{\tau'_n}\sum_{\tau''}P(h_t)\pi(a_t|s_t)P(\tau'_n|h_t,a_t)P(\tau''|h_t,a_t,\tau'_n)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
+=&\sum_{\tau:T(\tau) > t} P(\tau|\theta) \gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\left[\gamma^n V(s_{t+n}) + \sum_{k=t}^{t+n-1} \gamma^{k-t} r(k)\right]\\
 \end{aligned}
 $$
 
