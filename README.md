@@ -135,17 +135,18 @@ $$
 
 $$
 \begin{aligned}
-\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\right]&=\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\right]\\
-&=\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\\
-&=\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\pi(a_t|s_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\pi(a_t|s_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\pi(a_t|s_t)\left[\frac{\nabla_\theta \pi_\theta(a_t|s_t)}{\pi_\theta(a_t|s_t)}\right]\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\nabla_\theta \pi_\theta(a_t|s_t)\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\nabla_\theta \sum_{a_t}\pi_\theta(a_t|s_t)\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\nabla_\theta 1\\
-&=\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right] \cdot 0\\
-&=0
+&\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\right]\\
+=&\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\right]\\
+=&\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\\
+=&\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=0}^{t-1} \gamma^k r(k)\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\pi(a_t|s_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\pi(a_t|s_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\pi(a_t|s_t)\left[\frac{\nabla_\theta \pi_\theta(a_t|s_t)}{\pi_\theta(a_t|s_t)}\right]\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\sum_{a_t}\nabla_\theta \pi_\theta(a_t|s_t)\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\nabla_\theta \sum_{a_t}\pi_\theta(a_t|s_t)\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right]\nabla_\theta 1\\
+=&\sum_{h_t}P(h_t)\left[\sum_{k=0}^{t-1} \gamma^k r(k)\right] \cdot 0\\
+=&0
 \end{aligned}
 $$
 
@@ -181,11 +182,12 @@ $$
 
 $$
 \begin{aligned}
-\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]&=\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]\\
-&=\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\\
-&=\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\\
-&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^k r(k)\\
-&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\qquad \qquad (7)
+&\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]\\
+=&\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]\\
+=&\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\\
+=&\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^k r(k)\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\qquad \qquad (7)
 \end{aligned}
 $$
 
