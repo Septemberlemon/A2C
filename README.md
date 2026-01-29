@@ -207,13 +207,14 @@ $$
 
 $$
 \begin{aligned}
-\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
-&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
-&=\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\\
-&=\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
-&=\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
-&=\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
-&=\sum_{\tau:T(\tau) > t}P(\tau|\theta)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\qquad \qquad (8)
+&\sum_{\tau:T(\tau) > t}P(\tau|\theta)\left[\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{k=t}^{T-1} \gamma^k r(k)\right]\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\sum_{k=t}^{T-1} \gamma^{k-t} r(k)\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
+=&\sum_{h_t}P(h_t)\sum_{a_t}\pi(a_t|s_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\sum_{\tau'}P(\tau'|h_t,a_t)\\
+=&\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|s_t)P(\tau'|h_t,a_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
+=&\sum_{h_t}\sum_{a_t}\sum_{\tau'}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
+=&\sum_{\tau:T(\tau) > t}P(h_t)\pi(a_t|h_t)P(\tau'|h_t,a_t)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\\
+=&\sum_{\tau:T(\tau) > t}P(\tau|\theta)\gamma^t Q(s_t,a_t)\nabla_\theta \ln \pi_\theta(a_t|s_t)\qquad \qquad (8)
 \end{aligned}
 $$
 
@@ -292,9 +293,10 @@ $$
 
 $$
 \begin{aligned}
-\mathbb{E}_{\tau \sim \pi_\theta}\left[\sum_{t=0}^{T-1}\gamma^t b(s_t)\nabla_\theta \ln \pi_\theta (a_t|s_t)\right]&=\sum_\tau P(\tau)\sum_{t=0}^{T-1}\gamma^t b(s_t)\nabla_\theta \ln \pi_\theta (a_t|s_t)\\
-&=\sum_\tau P(\tau)\sum_{t=0}^\infty Z_\tau (t)\\
-&=\sum_{t=0}^\infty \sum_\tau P(\tau) Z_\tau (t)\qquad \qquad (11)
+&\mathbb{E}_{\tau \sim \pi_\theta}\left[\sum_{t=0}^{T-1}\gamma^t b(s_t)\nabla_\theta \ln \pi_\theta (a_t|s_t)\right]\\
+=&\sum_\tau P(\tau)\sum_{t=0}^{T-1}\gamma^t b(s_t)\nabla_\theta \ln \pi_\theta (a_t|s_t)\\
+=&\sum_\tau P(\tau)\sum_{t=0}^\infty Z_\tau (t)\\
+=&\sum_{t=0}^\infty \sum_\tau P(\tau) Z_\tau (t)\qquad \qquad (11)
 \end{aligned}
 $$
 
