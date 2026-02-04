@@ -64,38 +64,38 @@ for episode in range(episodes):
         steps += 1
         total_reward += reward
 
-        observations.insert(0, obs)
-        rewards.insert(0, reward / 100)
-        log_probs.insert(0, dist.log_prob(action))
-        entropies.insert(0, dist.entropy())
+        observations.append(obs)
+        rewards.append(reward / 100)
+        log_probs.append(dist.log_prob(action))
+        entropies.append(dist.entropy())
 
         if terminated:
             sum_reward = 0
             sum_rewards = []
-            for reward, obs, log_prob in zip(rewards, observations[1:], log_probs):
+            for reward, log_prob in zip(rewards[::-1], log_probs[::-1]):
                 sum_reward *= gamma
                 sum_reward += reward
                 sum_rewards.append(sum_reward)
-            sum_rewards_tensor = torch.tensor(sum_rewards, dtype=torch.float32).to("cuda")
-            V_s = critic(torch.from_numpy(np.stack(observations[1:])).to("cuda"))
+            sum_rewards_tensor = torch.tensor(sum_rewards[::-1], dtype=torch.float32).to("cuda")
+            V_s = critic(torch.from_numpy(np.stack(observations[:-1])).to("cuda"))
             update(V_s, sum_rewards_tensor, torch.stack(log_probs), torch.stack(entropies), entropy_coef)
             break
         else:
             if truncated or steps % n_steps == 0:
-                V_last = critic(torch.tensor(observations[0]).to("cuda")).item()
+                V_last = critic(torch.tensor(observations[-1]).to("cuda")).item()
                 sum_reward = 0
                 targets = []
-                for reward, obs, log_prob in zip(rewards, observations[1:], log_probs):
+                for reward, log_prob in zip(rewards[::-1], log_probs[::-1]):
                     sum_reward *= gamma
                     sum_reward += reward
                     V_last *= gamma
                     targets.append(sum_reward + V_last)
-                V_s = critic(torch.from_numpy(np.stack(observations[1:])).to("cuda"))
-                targets = torch.tensor(targets, dtype=torch.float32).to("cuda")
+                targets = torch.tensor(targets[::-1], dtype=torch.float32).to("cuda")
+                V_s = critic(torch.from_numpy(np.stack(observations[:-1])).to("cuda"))
                 update(V_s, targets, torch.stack(log_probs), torch.stack(entropies), entropy_coef)
                 if truncated:
                     break
-                observations = [observations[0]]
+                observations = [observations[-1]]
                 rewards = []
                 log_probs = []
                 entropies = []
